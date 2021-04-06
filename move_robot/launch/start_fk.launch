@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+
+<launch>
+    <include file="$(find move_robot)/launch/common.launch"/>
+
+    <!-- run node that publishes values to the joint_states topic -->
+    <node name="joint_state_publisher_gui" pkg="joint_state_publisher_gui" type="joint_state_publisher_gui"/>
+
+    <!-- run the forward kinematics assignment code -->
+    <node pkg="move_robot" type="kinematics_assignment.py" name="forward_kinematics_pkg" output="screen"
+          clear_params="true">
+        <param name="mode" value="forward_kinematics"/>
+        <param name="world_tf" value="world"/>
+        <param name="base_tf" value="base_link"/>
+        <param name="ur_config" value="$(find move_robot)/config/ur3.yaml"/>
+        <param name="fwd_kin_marker_pose" value="fwd_kin_marker_pose"/>
+        <param name="joint_states_topic" value="joint_states"/>
+    </node>
+</launch>

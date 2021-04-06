@@ -1,0 +1,4 @@
+[submodule "docker/submodules/universal_robot"]
+	path = docker/submodules/universal_robot
+	url = https://github.com/fmauch/universal_robot
+	branch = calibration_devel

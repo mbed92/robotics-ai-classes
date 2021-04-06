@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+
+<launch>
+    <include file="$(find move_robot)/launch/common.launch"/>
+
+    <!-- run node that publishes values to the joint_states topic -->
+    <node pkg="move_robot" type="my_joint_state_publisher.py" name="my_joint_state_publisher" output="screen"/>
+
+    <!-- run the inverse kinematics assignment code -->
+    <node pkg="move_robot" type="kinematics_assignment.py" name="inverse_kinematics_assignment" output="screen"
+          clear_params="true">
+        <param name="mode" value="inverse_kinematics"/>
+        <param name="attach_interactive_marker_tf" value="wrist_3_link"/>
+        <param name="world_tf" value="world"/>
+        <param name="base_tf" value="base_link"/>
+        <param name="ur_config" value="$(find move_robot)/config/ur3.yaml"/>
+        <param name="inv_kin_joint_states" value="inv_kin_joint_states"/>
+        <param name="joint_state_topic" value="joint_state"/>
+    </node>
+</launch>

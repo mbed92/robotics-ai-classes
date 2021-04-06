@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+
+<launch>
+
+    <include file="$(find ur_description)/launch/ur3_upload.launch"/>
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/>
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find move_robot)/rviz/rviz.rviz"/>
+
+</launch>
+
+
+
+
+
