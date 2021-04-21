@@ -1,5 +1,8 @@
 xhost +local:root
 
+# INIT SUBMODULES
+git submodule update --init
+
 # BUILD THE IMAGE
 ROS_IMAGE="robotics_ai"
 ROS_CONTAINER="robotics_ai"
@@ -10,9 +13,6 @@ if [[ "$(docker images -q $ROS_IMAGE:latest 2>/dev/null)" == "" ]]; then
   echo "THe image $ROS_IMAGE was not created. Try again."
 
 else
-  # INIT SUBMODULES
-  git submodules update --init
-
   # MAP FOLDERS TO ENABLE RVIZ RENDERING INSIDE DOCKER
   # according to 1.3 nvidia-docker2: http://wiki.ros.org/docker/Tutorials/Hardware%20Acceleration
   XAUTH=/tmp/.docker.xauth

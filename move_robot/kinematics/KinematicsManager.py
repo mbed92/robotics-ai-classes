@@ -76,8 +76,8 @@ class KinematicsManager:
         elif self.mode == Modes.FODWARD_KIN:
 
             ### [TODO FK]: write:
-            ### * a publisher that publishers a Marker message type on the self.pose_state_topic topic and sets the method self.calculate_fwd_kin as a callback
-            ### * a Subscriber that takes JointState message type from the self.robot_joints topic
+            ### * a publisher that publishers a Marker message type on the self.pose_state_topic topic
+            ### * a Subscriber that takes JointState message type from the self.robot_joints topic and sets the method self.calculate_fwd_kin as a callback
             self.fwd_kin_marker_pub = ...
             self.fwd_kin_marker_sub = ...
             self.create_non_interactive_marker([1.0, 1.0, 1.0, 0.0, 0.0, 0.0, 1.0])

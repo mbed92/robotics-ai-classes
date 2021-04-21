@@ -9,7 +9,10 @@ to the **Installation/Manual installation**.
 
 ## Using Docker
 
-To build and run locally the prepared docker container run the [build_and_run.sh](docker/build_and_run.sh) script with 
+* Pull ```docker pull mbed92/robotics_ai``` comment the building part from [build_and_run.sh](docker/build_and_run.sh) and
+create your container using that image.
+
+* Build and run the environment locally. Run the [build_and_run.sh](docker/build_and_run.sh) script with 
 sudo priviliges. After it finishes, it should create and enter into the container under the path */catkin_ws*. 
 
 Since now everything should work smoothly and you can focus on your assignments. Also, you can open as many terminals as 
@@ -35,7 +38,7 @@ git clone -b calibration_devel https://github.com/fmauch/universal_robot
 sudo apt update -qq
 rosdep update
 rosdep install --from-paths src --ignore-src -y
-source /catkin_ws/devel/setup/bash
+source /catkin_ws/devel/setup.bash
 ```
 
 # Assignments
@@ -78,3 +81,6 @@ Run command:
 ```bash
 roslaunch move_robot start_ik.launch
 ```
+
+# Contact
+Contact me if you need any help with assignments: <michal.bednarek@put.poznan.pl>
