@@ -14,6 +14,7 @@ RUN apt-get update     && \
         lsb-core g++ openssh-server gedit vim git net-tools moreutils \
         python3-pip python3-catkin-tools python3-osrf-pycommon && \
     rm -rf /var/lib/apt/lists/*
+RUN pip3 install pybotics
 
 # SETUP SSH
 RUN echo root:root | /usr/sbin/chpasswd

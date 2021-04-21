@@ -42,7 +42,7 @@ class KinematicsManager:
         self.attach_interactive_marker_tf = rospy.get_param("~attach_interactive_marker_tf", "")
         self.world_tf = rospy.get_param("~world_tf", "")
         self.base_tf = rospy.get_param("~base_tf", "")
-        self.robot_joints = rospy.get_param("~joint_states", "")
+        self.robot_joints = rospy.get_param("~joint_states_topic", "")
         self.joint_state_topic = rospy.get_param("~inv_kin_joint_states", "")
         self.pose_state_topic = rospy.get_param("~fwd_kin_marker_pose", "")
         self.ur_config = rospy.get_param("~ur_config", "")

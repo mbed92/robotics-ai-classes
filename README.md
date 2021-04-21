@@ -32,6 +32,7 @@ Download that repositiory to the *catkin_ws/src* folder. Also, place there the s
 robotic manipulator.
 
 ```
+sudo apt-get install -y python3-pip python3-catkin-tools python3-osrf-pycommon 
 cd /catkin_ws/src
 git clone https://github.com/mbed92/robotics-ai-classes.git
 git clone -b calibration_devel https://github.com/fmauch/universal_robot
