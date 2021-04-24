@@ -1,0 +1,31 @@
+# for pybotics - a definition of a kinematic chain following the Modified Denavit-Hartenberg convention (MDH)
+joint0:
+  theta: 0
+  a: 0
+  d: 0.1519
+  alpha: 0
+joint1:
+  theta: 3.14
+  a: 0
+  d: 0
+  alpha: 1.57
+joint2:
+  theta: 0
+  a: 0.24365
+  d: 0
+  alpha: 0
+joint3:
+  theta: 0
+  a: 0.21365
+  d: 0.11235
+  alpha: 0
+joint4:
+  theta: 0
+  a: 0
+  d: 0.08535
+  alpha: -1.57
+joint5:
+  theta: 3.14
+  a: 0
+  d: 0.0819
+  alpha: 1.57
