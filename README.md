@@ -49,7 +49,7 @@ robotic manipulator. Forward kinematics tasks are marked with a ``` ### [TODO FK
 while the inverse kinematics part is marked with ``` ### [TODO IK] ... ``` comments.
 
 ## Forward kinematics 
-![Forward kinematics assignment](images/fwd.png)
+![Forward kinematics assignment](images/fwd.gif)
 
 The task is to write the code that calculates the position and orientation of the green marker
 with respect to the joint values (green box). As you move the robot with trackbars, the marker should
@@ -66,7 +66,7 @@ roslaunch move_robot start_fk.launch
 ```
 
 ## Inverse kinematics 
-![Inverse kinematics assignment](images/inv.png)
+![Inverse kinematics assignment](images/inv.gif)
 
 The task is to write the code that calculates the robot's pose (i.e. joint values) given the position and
 orientation of the interaction marker (three axes with a red sphere handle). As you move the interaction
