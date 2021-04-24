@@ -1,4 +1,4 @@
-# for pybotics - a definition of a kinematic chain following the Modified Denavit-Hartenberg convention (MDH)
+# for pybotics - a definition of a UR3 kinematic chain following the Modified Denavit-Hartenberg convention (MDH)
 joint0:
   theta: 0
   a: 0

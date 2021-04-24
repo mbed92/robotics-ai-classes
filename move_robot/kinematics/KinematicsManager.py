@@ -3,11 +3,10 @@ import tf
 import yaml
 from geometry_msgs.msg import Point, Quaternion, Vector3
 from interactive_markers.interactive_marker_server import InteractiveMarkerServer
-from sensor_msgs.msg import JointState
 from std_msgs.msg import ColorRGBA
 from visualization_msgs.msg import InteractiveMarker, InteractiveMarkerControl, Marker
 
-from .utilities import create_joint_state_msg, create_kinematic_model
+from .utilities import create_joint_state_msg, create_kinematic_model, get_transform
 
 
 class KinematicsManager:
@@ -40,16 +39,15 @@ class KinematicsManager:
     def __init__(self):
         self.mode = rospy.get_param("~mode", "")
         self.attach_interactive_marker_tf = rospy.get_param("~attach_interactive_marker_tf", "")
-        self.world_tf = rospy.get_param("~world_tf", "")
         self.base_tf = rospy.get_param("~base_tf", "")
-        self.robot_joints = rospy.get_param("~joint_states_topic", "")
+        self.robot_joints = rospy.get_param("~joint_states", "")
         self.joint_state_topic = rospy.get_param("~inv_kin_joint_states", "")
         self.pose_state_topic = rospy.get_param("~fwd_kin_marker_pose", "")
         self.ur_config = rospy.get_param("~ur_config", "")
         self.listener = tf.TransformListener()
 
         ### [TODO FK]: load dh parameters according to: https://www.universal-robots.com/articles/ur/application-installation/dh-parameters-for-calculations-of-kinematics-and-dynamics/
-        ### * look into the config/ur3.yaml file
+        ### * look into the config/ur3_dh.yaml file
         stream = open(self.ur_config, 'r')
         self.dh = yaml.load(stream, Loader=yaml.FullLoader)
 
@@ -85,7 +83,7 @@ class KinematicsManager:
             rospy.logerr("Unknown mode param. Not initialized. ")
 
     def create_non_interactive_marker(self, coordinates: list):
-        self.fwd_kin_marker.header.frame_id = self.world_tf
+        self.fwd_kin_marker.header.frame_id = self.base_tf
         self.fwd_kin_marker.header.stamp = rospy.Time.now()
         self.fwd_kin_marker.type = self.fwd_kin_marker.CUBE
         self.fwd_kin_marker.action = self.fwd_kin_marker.ADD
@@ -96,26 +94,22 @@ class KinematicsManager:
         self.fwd_kin_marker_pub.publish(self.fwd_kin_marker)
 
     def create_interactive_marker(self):
-        self.i_marker.header.frame_id = self.world_tf
+        self.i_marker.header.frame_id = self.base_tf
         self.i_marker.header.stamp = rospy.Time.now()
         self.i_marker.name = "user_input_marker"
         self.i_marker.description = "Input Pose"
 
         # attach marker to the specified frame
         if self.attach_interactive_marker_tf is not None:
-            try:
-                self.listener.waitForTransform(self.world_tf, self.attach_interactive_marker_tf, rospy.Time(),
-                                               rospy.Duration(5.0))
-                (trans, rot) = self.listener.lookupTransform(self.base_tf, self.attach_interactive_marker_tf,
-                                                             rospy.Time(0))
-                if None not in [trans, rot]:
-                    self.i_marker.pose.position = Point(*trans)
-                    self.i_marker.pose.orientation = Quaternion(*rot)
-                else:
-                    rospy.logwarn(
-                        "Cannot compute TF from {} to {}".format(self.base_tf, self.attach_interactive_marker_tf))
-            except (tf.LookupException, tf.ConnectivityException, tf.ExtrapolationException):
-                rospy.logwarn("Cannot align interaction marker with TF {}".format(self.attach_interactive_marker_tf))
+            trans, rot = get_transform(self.base_tf, self.attach_interactive_marker_tf, self.listener)
+            if None not in [trans, rot]:
+                self.i_marker.pose.position = Point(*trans)
+                self.i_marker.pose.orientation = Quaternion(*rot)
+            else:
+                rospy.logwarn("Cannot align interaction marker with TF {}. Set a default pose.".format(
+                    self.attach_interactive_marker_tf))
+                self.i_marker.pose.position = Point([1, 1, 1])
+                self.i_marker.pose.orientation = Quaternion([0, 0, 0, 1])
 
         # create a grey box marker
         self.dot_marker.type = self.dot_marker.SPHERE

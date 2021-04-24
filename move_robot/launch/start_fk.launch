@@ -10,10 +10,10 @@
     <node pkg="move_robot" type="kinematics_assignment.py" name="forward_kinematics_pkg" output="screen"
           clear_params="true">
         <param name="mode" value="forward_kinematics"/>
-        <param name="world_tf" value="world"/>
-        <param name="base_tf" value="base_link"/>
-        <param name="ur_config" value="$(find move_robot)/config/ur3.yaml"/>
+        <param name="base_tf" value="base"/>
+        <param name="attach_interactive_marker_tf" value="wrist_3_link"/>
+        <param name="ur_config" value="$(find move_robot)/config/ur3_dh.yaml"/>
         <param name="fwd_kin_marker_pose" value="fwd_kin_marker_pose"/>
-        <param name="joint_states_topic" value="joint_states"/>
+        <param name="joint_states" value="joint_states"/>
     </node>
 </launch>

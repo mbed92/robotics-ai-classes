@@ -9,11 +9,13 @@ to the **Installation/Manual installation**.
 
 ## Using Docker
 
-* Pull ```docker pull mbed92/robotics_ai``` comment the building part from [build_and_run.sh](docker/build_and_run.sh) and
-create your container using that image.
+* You can just pull the Docker image: ```docker pull mbed92/robotics_ai``` and create the container. 
+To run create the container look into [build_and_run.sh](docker/build_and_run.sh) for more details 
+(comment the building instruction - it's not needed anymore).
 
 * Build and run the environment locally. Run the [build_and_run.sh](docker/build_and_run.sh) script with 
-sudo priviliges. After it finishes, it should create and enter into the container under the path */catkin_ws*. 
+sudo priviliges (```sudo bash build_and_run.sh```). After it finishes, 
+it should create and enter into the container under the path */catkin_ws*. 
 
 Since now everything should work smoothly and you can focus on your assignments. Also, you can open as many terminals as 
 you need (for the classes two terminals are suggested - terminator is a very helpful tool for that) and attach each 
@@ -55,7 +57,7 @@ The task is to write the code that calculates the position and orientation of th
 with respect to the joint values (green box). As you move the robot with trackbars, the marker should
 follow the tip of the robot. The repository contains code lines marked iwth a ``` ### [TODO FK] ... ``` comment. 
 Look into them and fill that places with your code:
-* in *move_robot/config/ur3.yaml* - define the UR3 robot with a DH parameters specified in [link](https://www.universal-robots.com/articles/ur/application-installation/dh-parameters-for-calculations-of-kinematics-and-dynamics/)
+* in *move_robot/config/ur3_dh.yaml* - define the UR3 robot with a DH parameters specified in [link](https://www.universal-robots.com/articles/ur/application-installation/dh-parameters-for-calculations-of-kinematics-and-dynamics/)
 * in *move_robot/kinematics/KinematicsManager.py* - define a subscriber for joint states and publisher for the marker position 
 * in *move_robot/kinematics/KinematicsManager.py* - implement the method that takes joint values and calculates the position and orientation of the end-effector
 
@@ -72,10 +74,15 @@ The task is to write the code that calculates the robot's pose (i.e. joint value
 orientation of the interaction marker (three axes with a red sphere handle). As you move the interaction
 marker with a mouse, the robot should adapt its pose to follow the marker. Look into lines with ``` ### [TODO IK] ... ``` and
 fill them with your code:
-* in *move_robot/kinematics/KinematicsManager.py* - write a publisher for calculated joint values
 * in *move_robot/kinematics/JointStatePublisher.py* - implement your joint state publisher that publishes joint values from the inverse kinematics and updates the robot's pose
-* in *move_robot/kinematics/KinematicsManager.py* - implement the inverse kinematics callbac function that caluclate the joint valuse w. r. t. to the end-effector pose
+* in *move_robot/kinematics/utilities.py* - define a kinematic chain in pybotics
+* in *move_robot/kinematics/KinematicsManager.py* - implement the inverse kinematics callback function that caluclate the joint values w. r. t. to the end-effector pose
+* in *move_robot/kinematics/KinematicsManager.py* - write a publisher for calculated joint values
 
+Inverse kinematics library - pybotics: 
+* [GitHub page](https://github.com/nnadeau/pybotics)
+* [docs](https://pybotics.readthedocs.io/en/latest/index.html)
+* [pip](https://pypi.org/project/pybotics/)
 
 Run command:
 
