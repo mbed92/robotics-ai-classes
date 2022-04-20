@@ -91,4 +91,4 @@ roslaunch move_robot start_ik.launch
 ```
 
 # Contact
-Contact me if you need any help with assignments: <michal.bednarek@put.poznan.pl>
+Contact me if you need any help with assignments: <michalbednarek.e@gmail.com>
